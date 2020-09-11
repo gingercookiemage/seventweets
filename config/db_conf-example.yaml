@@ -1,8 +1,8 @@
-user:
-password:
-host:
-port:
+user: seventweets1
+password: seventweets1
+host: localhost
+port: 5432
 unix_sock:
-database:
-ssl:
+database: seventweets1
+ssl_context:
 timeout:

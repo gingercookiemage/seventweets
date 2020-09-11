@@ -52,7 +52,11 @@ $ pip install -r requirements-dev.txt
 ```
 
 For initiating database and running the service we will use `start.py` script in seventweets directory.
+Add seventweets module to PYTHONPATH:
 
+```
+$ export PYTHONPATH="path-to/seventweets"
+```
 You can initiate database with :
 ```
 $ python start.py --dbname=yourdatabase --sname=username init_db 

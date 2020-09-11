@@ -58,7 +58,7 @@ class Server:
                     port=cfg['port'],
                     database=cfg['database'],
                     password=cfg['password'],
-                    ssl=cfg['ssl'],
+                    ssl_context=cfg['ssl_context'],
                     timeout=cfg['timeout']
                     )
         except FileNotFoundError:

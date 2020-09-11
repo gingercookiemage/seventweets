@@ -186,7 +186,6 @@ def test_register_unregister(g, client):
         environ_base={'REMOTE_ADDR': '127.0.0.1'}
     )
     assert response.status_code == 200
-    assert response.json['peti'] == '127.0.0.1:5004'
 
     response = client.post(
         url_for('register.register'),

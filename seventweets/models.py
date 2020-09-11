@@ -134,7 +134,7 @@ class Database:
     """
 
     def __init__(self, user, database, host='localhost', unix_sock=None,
-                 port=5432, password=None, ssl=False, timeout=None):
+                 port=5432, password=None, ssl_context=None, timeout=None):
         """
         Initialize class with db parameters
         :param user:
@@ -153,7 +153,7 @@ class Database:
         self.unix_sock = unix_sock
         self.port = port
         self.password = password
-        self.ssl = ssl
+        self.ssl_context = ssl_context
         self.timeout = timeout
 
     def get_db(self):
@@ -170,7 +170,7 @@ class Database:
                 unix_sock=self.unix_sock,
                 port=self.port,
                 password=self.password,
-                ssl=self.ssl,
+                ssl_context=self.ssl_context,
                 timeout=self.timeout
             )
         return db
