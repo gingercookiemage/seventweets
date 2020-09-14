@@ -16,7 +16,6 @@ class MyFlask(Flask):
     When loading different server configs, path to config needs to be changed
     """
     def __init__(self, *args, **kwargs):
-        cfg = None
         with open("config/server1.yaml", 'r') as ymlfile:
             cfg = yaml.load(ymlfile)
         server_name = cfg['server']['server_name']

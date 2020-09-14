@@ -19,7 +19,7 @@ def register():
     address = '{}:{}'.format(request.remote_addr, request.get_json()['port'])
     name = request.get_json()['name']
     response = g.registry.register(name=name, address=address)
-    logger.debug('registered: {}'.format(g.registry.servers[name]))
+    logger.info('registered: {}'.format(g.registry.servers[name]))
     return response
 
 
@@ -33,5 +33,5 @@ def unregister(name):
     """
     ip = request.remote_addr
     g.registry.unregister(name, ip)
-    logger.debug('unregistered: {}'.format(name))
+    logger.info('unregistered: {}'.format(name))
     return jsonify({'status': 'removal complete'})

@@ -15,7 +15,7 @@ def test_endpoint_get_tweets(g, client):
     id1 = response.json['id']
     assert response.status_code == 201
 
-    data_retweet1 = {'name': 'prvi', 'id': id1}
+    data_retweet1 = {'name': 'user1', 'id': id1}
     response = client.post(
         url_for('tweets.create_re_tweet'),
         headers=headers,
@@ -142,7 +142,7 @@ def test_create_retweet(g, client):
     response = client.post(
         url_for('tweets.create_re_tweet'),
         headers={'Content-Type': 'bla'},
-        data=json.dumps({'name': 'prvi', 'id': 2})
+        data=json.dumps({'name': 'user1', 'id': 2})
     )
     assert response.status_code == 400
 
@@ -158,7 +158,7 @@ def test_create_retweet(g, client):
     response = client.post(
         url_for('tweets.create_re_tweet'),
         headers=headers,
-        data=json.dumps({'name': 'prvi', 'id': id1})
+        data=json.dumps({'name': 'user1', 'id': id1})
     )
     assert response.status_code == 201
     id2 = response.json['id']
@@ -176,7 +176,7 @@ def test_create_retweet(g, client):
 def test_register_unregister(g, client):
 
     data = {
-        'name': 'peti',
+        'name': 'user5',
         'port': '5004'
     }
     response = client.post(
@@ -213,7 +213,7 @@ def test_register_unregister(g, client):
 
 def test_search_me(g, client):
 
-    ids = fill_db_prvi_with_data(g, client)
+    ids = fill_db_user1_with_data(g, client)
 
     response = client.get(url_for('tweets.search_me'))
     assert response.status_code == 200
@@ -265,7 +265,7 @@ def test_search_me(g, client):
         assert response.status_code == 204
 
 
-def fill_db_prvi_with_data(g, client):
+def fill_db_user1_with_data(g, client):
 
     data1 = {'tweet': 'nice day'}
     response = client.post(
@@ -285,7 +285,7 @@ def fill_db_prvi_with_data(g, client):
     id2 = response.json['id']
     assert response.status_code == 201
 
-    data3 = {'name': 'prvi', 'id': id1}
+    data3 = {'name': 'user1', 'id': id1}
     response = client.post(
         url_for('tweets.create_re_tweet'),
         headers=headers,
@@ -294,7 +294,7 @@ def fill_db_prvi_with_data(g, client):
     id3 = response.json['id']
     assert response.status_code == 201
 
-    data4 = {'name': 'prvi', 'id': id2}
+    data4 = {'name': 'user1', 'id': id2}
     response = client.post(
         url_for('tweets.create_re_tweet'),
         headers=headers,
@@ -313,7 +313,7 @@ def fill_db_prvi_with_data(g, client):
     response = client.delete(url_for('tweets.delete_tweet', id=id5))
     assert response.status_code == 204
 
-    data6 = {'name': 'prvi', 'id': id5}
+    data6 = {'name': 'user1', 'id': id5}
     response = client.post(
         url_for('tweets.create_re_tweet'),
         headers=headers,
@@ -322,7 +322,7 @@ def fill_db_prvi_with_data(g, client):
     id6 = response.json['id']
     assert response.status_code == 201
 
-    data7 = {'name': 'prvi', 'id': id5}
+    data7 = {'name': 'user1', 'id': id5}
     response = client.post(
         url_for('tweets.create_re_tweet'),
         headers=headers,
@@ -331,7 +331,7 @@ def fill_db_prvi_with_data(g, client):
     id7 = response.json['id']
     assert response.status_code == 201
 
-    data8 = {'name': 'drugi', 'id': 0}
+    data8 = {'name': 'user2', 'id': 0}
     response = client.post(
         url_for('tweets.create_re_tweet'),
         headers=headers,
@@ -340,7 +340,7 @@ def fill_db_prvi_with_data(g, client):
     id8 = response.json['id']
     assert response.status_code == 201
 
-    data9 = {'name': 'drugi', 'id': 0}
+    data9 = {'name': 'user2', 'id': 0}
     response = client.post(
         url_for('tweets.create_re_tweet'),
         headers=headers,
@@ -364,17 +364,17 @@ def fill_db_prvi_with_data(g, client):
 
 def test_search_all(g, client):
 
-    fill_db_prvi_with_data(g, client)
+    fill_db_user1_with_data(g, client)
 
     response = client.get(url_for('tweets.search_all'))
-    #results from 3 servers - server drugi and treci return the same result
+    #results from 3 servers - server user2 and user3 return the same result
     # because there is only one mock of the external server
     assert response.status_code == 200
     assert len(response.json['items']) == 17
     assert response.json['last_creation_time'] == '0'
 
     params = {
-        'name': 'prvi',
+        'name': 'user1',
         'content': 'nice'
     }
     response = client.get(url_for('tweets.search_all'), query_string=params)
@@ -389,14 +389,14 @@ def test_search_all(g, client):
     assert len(response.json['items']) == 2
 
     params = {
-        'name': 'drugi',
+        'name': 'user2',
         'content': 'nice'
     }
     response = client.get(url_for('tweets.search_all'), query_string=params)
     assert response.status_code == 404
 
     params = {
-        'name': 'treci',
+        'name': 'user3',
         'content': 'nice'
     }
     response = client.get(url_for('tweets.search_all'), query_string=params)
@@ -423,7 +423,7 @@ def test_search_all(g, client):
     assert len(response.json['items']) == 10
 
     params = {
-        'name': 'prvi',
+        'name': 'user1',
         'content': 'day',
         'per_page': 3,
         'from_time': '2010',
@@ -434,7 +434,7 @@ def test_search_all(g, client):
     assert len(response.json['items']) == 3
     time_of_last_in_page = response.json['last_creation_time']
     params = {
-        'name': 'prvi',
+        'name': 'user1',
         'content': 'day',
         'per_page': 3,
         'from_time': '2010',
@@ -498,7 +498,7 @@ def test_search_all(g, client):
     assert response.status_code == 404
 
     params = {
-        'name': 'prvi',
+        'name': 'user1',
         'per_page': 4,
         'from_time': '2010',
         'to_time': '2050'
@@ -508,7 +508,7 @@ def test_search_all(g, client):
     assert len(response.json['items']) == 4
     time_of_last_in_page = response.json['last_creation_time']
     params = {
-        'name': 'prvi',
+        'name': 'user1',
         'per_page': 4,
         'from_time': '2010',
         'to_time': '2050',

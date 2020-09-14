@@ -11,17 +11,17 @@ class MockClientResponse(object):
 
 
 data = [
-    {'id': 2, 'name': 'drugi', 'type': 'original',
+    {'id': 2, 'name': 'user2', 'type': 'original',
      'creation_time': '2010-01-01', 'tweet': 'joyful day'},
-    {'id': 3, 'name': 'drugi', 'type': 'original',
+    {'id': 3, 'name': 'user2', 'type': 'original',
      'creation_time': '2010-01-02', 'tweet': 'test tweet 1'},
-    {'id': 4, 'name': 'drugi', 'type': 'original',
+    {'id': 4, 'name': 'user2', 'type': 'original',
      'creation_time': '2010-01-03', 'tweet': 'test tweet 2'},
-    {'id': 5, 'name': 'drugi', 'type': 'retweet',
+    {'id': 5, 'name': 'user2', 'type': 'retweet',
      'creation_time': '2010-01-04', 'tweet': 'test tweet 1'},
-    {'id': 6, 'name': 'drugi', 'type': 'original',
+    {'id': 6, 'name': 'user2', 'type': 'original',
      'creation_time': '2010-01-05', 'tweet': 'test tweet 3'},
-    {'id': 7, 'name': 'drugi', 'type': 'retweet',
+    {'id': 7, 'name': 'user2', 'type': 'retweet',
      'creation_time': '2010-01-06', 'tweet': 'test tweet 3'}
 ]
 

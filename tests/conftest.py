@@ -30,16 +30,16 @@ def g():
     from tests.mocks import Client
 
     g.get_client = lambda **kwargs: Client
-    g.my_name = 'prvi'
+    g.my_name = 'user1'
     g.port = 5000
-    g.db_name = 'prviserver'
+    g.db_name = 'user1server'
     g.my_address = '127.0.0.1:5000'
     g.registry = Registry(name=g.my_name, address=g.my_address)
     g.db = Database(my_name=g.my_name, db_name=g.db_name)
     g.connect_to = '127.0.0.1:5001'
     g.registry.servers.update(
-        {'drugi': '127.0.0.1:5001',
-         'treci': '127.0.0.1:5002'}
+        {'user2': '127.0.0.1:5001',
+         'user3': '127.0.0.1:5002'}
     )
     yield g
     g.db.stop()

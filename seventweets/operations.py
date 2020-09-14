@@ -22,6 +22,7 @@ def connect_to_all_servers():
                         'port': g.port
                     }
                 )
+    return 'ok'
 
 
 def connect_to_server():
@@ -48,6 +49,7 @@ def unregister_from_servers():
         if name != g.my_name:
             client = g.get_client(server_name=name)
             client.unregister(g.my_name)
+    return 'ok'
 
 
 def get_tweets():

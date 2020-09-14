@@ -1,27 +1,38 @@
 from seventweets import operations
 from seventweets.models import QueryArgs
-from tests.test_api.test_endpoints import fill_db_prvi_with_data
+from tests.test_api.test_endpoints import fill_db_user1_with_data
 
 
 def test_connect_to_server(g):
-    assert operations.connect_to_server().json()['status'] == 'ok'
+    assert g.my_name == 'user1'
+    assert g.port == 5000
+
+    result = operations.connect_to_server()
+
+    assert result.json()['status'] == 'ok'
 
 
 def test_connect_to_all_servers(g):
-    assert g.my_name == 'prvi'
+    assert g.my_name == 'user1'
     assert g.port == 5000
-    operations.connect_to_all_servers()
+
+    result = operations.connect_to_all_servers()
+
+    assert result == 'ok'
 
 
 def test_unregister_from_servers(g):
-    assert g.my_name == 'prvi'
+    assert g.my_name == 'user1'
     assert g.port == 5000
-    operations.unregister_from_servers()
+
+    result = operations.unregister_from_servers()
+
+    assert result == 'ok'
 
 
 def test_append_available(g, client):
 
-    fill_db_prvi_with_data(g, client)
+    fill_db_user1_with_data(g, client)
 
     args = QueryArgs(
         content=None,
